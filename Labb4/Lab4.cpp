@@ -119,6 +119,48 @@ bool operator>(List<T> num1, List<T> num2)
     return false;
 };
 
+template<typename T>
+bool operator<(List<T> num1, List<T> num2)
+{
+    List<T> n1 = num1.Copy();
+    Reverse(n1);
+    List<T> n2 = num2.Copy();
+    Reverse(n1);
+
+    if (num1.Size() > num2.Size())
+        return false;
+    else
+        return true;
+    if (num1.Size() == 0 || num2.Size() == 0)
+        return num1.Size() > num2.Size();
+
+    Node<T>* ptr1 = n1.Begin();
+    Node<T>* ptr2 = n2.Begin();
+    for (; ptr1 != num1.End() && ptr2 != num2.End();
+        ptr1 = ptr1->next, ptr2 = ptr2->next)
+    {
+        if (ptr1->value < ptr2->value)
+            return true;
+        else
+            return false;
+    }
+    n1.Clear(); n2.Clear();
+
+    return false;
+};
+
+template<typename T>
+bool operator<=(List<T> num1, List<T> num2)
+{
+    return !(num1 > num2);
+};
+
+template<typename T>
+bool operator>=(List<T> num1, List<T> num2)
+{
+    return !(num1 < num2);
+};
+
 List<int> operator-(List<int> n1, List<int> n2)
 {
     List<int> num1 = n1.Copy();
@@ -183,20 +225,27 @@ List<int> Factorial(int n)
     }
     return ans;
 }
+/*
+List<int> operator/(List<int> n1, List<int> n2)
+{
+    List<int> num1 = n1.Copy();
+    List<int> num2 = n2.Copy();
+
+    List<int> ans;
+
+    
+}*/
 
 int main()
 {
     List<int> list1;
-    list1.PushFront(1);
-    list1.PushFront(9);
-    list1.PushFront(2);
-    list1.PushFront(1);
+    list1.PushFront(8);
+
 
 
     List<int> list2;
-    list2.PushFront(9);
-    list2.PushFront(9);
-    list2.PushFront(9);
+    list2.PushFront(3);
+
 
     //PrintReverse(list1);
     //PrintReverse(list2);
@@ -207,9 +256,10 @@ int main()
     else
         list3 = list2 - list1;
 
-    List<int> fact = Factorial(5);
+    List<int> fact = Factorial(200);
 
-    PrintReverse(fact);
+    List<int> m = list1 * list2;
+    PrintReverse(m);
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
